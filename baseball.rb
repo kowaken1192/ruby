@@ -1,0 +1,22 @@
+require "csv"
+
+puts "1(新規でメモを作成)2(既存のメモを編集する)"
+memo_type = gets.to_i
+puts "選択：" + memo_type.to_s
+
+if memo_type == 1
+  puts "新規でメモを作成します。ファイル名を入力してください。"
+  file_name = gets.strip
+
+  puts "メモの内容を記入して下さい。Ctrl+Dで保存します。"
+  input_memo = STDIN.read
+  memo = input_memo.chomp
+
+  CSV.open("#{file_name}.csv", "w") do |csv|
+    csv.puts [memo]
+  end
+elsif memo_type == 2
+  puts "既存のメモを編集します。拡張子を除いた既存ファイル名を入力してください。"
+else
+  puts "1か2の数字を入力してください"
+end
